@@ -3,7 +3,7 @@ import json
 import sunshine
 
 
-key = 'dogggo'
+key = 'doggo'
 schema = {
     'properties': {
         'name': {
