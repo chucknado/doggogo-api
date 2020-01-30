@@ -4,6 +4,7 @@ import requests
 credentials = 'your_zendesk_email', 'your_zendesk_password'
 zendesk = 'https://your_subdomain.zendesk.com'
 
+
 def create_object_type(key, schema):
     data = {'data': {'key': key, 'schema': schema}}
     url = f'{zendesk}/api/sunshine/objects/types'
@@ -13,6 +14,7 @@ def create_object_type(key, schema):
         print(f'\nFailed to create {key} object type with error {response.status_code}: {response.text}')
         return False
     return response.json()['data']
+
 
 def create_relationship_type(key, source, target):
     data = {'data': {'key': key, 'source': source, 'target': target}}
@@ -24,6 +26,7 @@ def create_relationship_type(key, source, target):
         return False
     return response.json()['data']
 
+
 def create_object_record(obj_type, attributes):
     data = {'data': {'type': obj_type, 'attributes': attributes}}
     url = f'{zendesk}/api/sunshine/objects/records'
@@ -32,6 +35,7 @@ def create_object_record(obj_type, attributes):
     if response.status_code != 201:
         return {'error_code': response.status_code}
     return response.json()['data']
+
 
 def create_relationship_record(rel_type, source, target):
     data = {'data': {'relationship_type': rel_type, 'source': f'zen:user:{source}', 'target': target}}
@@ -42,6 +46,7 @@ def create_relationship_record(rel_type, source, target):
         return {'error_code': response.status_code}
     return response.json()['data']
 
+
 def list_related_object_records(record_id, rel_type):
     url = f'{zendesk}/api/sunshine/objects/records/{record_id}/related/{rel_type}'
     headers = {'Accept': 'application/json'}
@@ -49,6 +54,7 @@ def list_related_object_records(record_id, rel_type):
     if response.status_code != 200:
         return {'error_code': response.status_code}
     return response.json()['data']
+
 
 def update_object_record(record_id, attributes):
     url = f'{zendesk}/api/sunshine/objects/records/{record_id}'

@@ -1,6 +1,6 @@
 import json
 
-from api import sunshine
+import sunshine
 from bottle import route, run, request, response
 
 
