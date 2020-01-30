@@ -1,12 +1,13 @@
 import json
 
-import sunshine
+from api import sunshine
 from bottle import route, run, request, response
 
 
 @route('/test')
 def test():
     return '<p>Hello World!</p>'
+
 
 @route('/api/doggos', method='POST')
 def add_doggo():
@@ -37,6 +38,7 @@ def add_doggo():
     response.headers['Content-Type'] = 'application/json'
     return json.dumps({'record': doggo_record})
 
+
 @route('/api/owners/<user_id>/doggos')
 def list_doggos(user_id):
     user_id = f'zen:user:{user_id}'
@@ -48,6 +50,7 @@ def list_doggos(user_id):
     response.headers['Content-Type'] = 'application/json'
     return json.dumps({'doggos': doggos})
 
+
 @route('/api/doggos/<doggo_id>', method='PUT')
 def update_doggo(doggo_id):
     attributes = request.json.get('doggo')
@@ -58,5 +61,6 @@ def update_doggo(doggo_id):
     response.status = 200
     response.headers['Content-Type'] = 'application/json'
     return json.dumps({'record': record})
+
 
 run(debug=True)
